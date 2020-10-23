@@ -19,7 +19,7 @@ namespace Dfo.Main.Domain.QueryHandlers
 
         public override async Task<List<UserDto>> AfterValidation(GetUsersQuery request)
         {
-            var (hasError, users, error) = await _userService.GetUsers();
+            var (hasError, users, error) = await _userService.GetUsers(request.Name);
 
             if (hasError)
             {

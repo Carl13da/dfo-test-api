@@ -9,7 +9,7 @@ namespace Dfo.Main.Domain.Interfaces.Services
     {
         Task<Tuple<bool, string>> AddUser(UserDto dto);
         Task<Tuple<bool, string>> UpdateUser(UserDto dto);
-        Task<Tuple<bool, List<UserDto>, string>> GetUsers();
+        Task<Tuple<bool, List<UserDto>, string>> GetUsers(string name);
         Task<Tuple<bool, UserDto, string>> GetUser(int id);
     }
 }

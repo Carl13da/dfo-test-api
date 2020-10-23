@@ -17,17 +17,16 @@ namespace Dfo.Main.Api.Controllers
         }
 
         [HttpGet]
-        [Route("byId")]
-        public async Task<IActionResult> GetUserById([FromQuery] int id)
+        [Route("{id}")]
+        public async Task<IActionResult> GetUserById([FromRoute] int id)
         {
             return Response(await Mediator.SendQuery(new GetUserQuery(id)));
         }
 
         [HttpGet]
-        [Route("all")]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery] string name)
         {
-            return Response(await Mediator.SendQuery(new GetUsersQuery()));
+            return Response(await Mediator.SendQuery(new GetUsersQuery(name)));
         }
 
         [HttpPost(Name = "CreateUser")]

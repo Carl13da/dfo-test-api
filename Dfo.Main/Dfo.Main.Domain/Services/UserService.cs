@@ -37,9 +37,12 @@ namespace Dfo.Main.Domain.Services
             return Tuple.Create(false, resultDto, string.Empty);
         }
 
-        public async Task<Tuple<bool, List<UserDto>, string>> GetUsers()
+        public async Task<Tuple<bool, List<UserDto>, string>> GetUsers(string name)
         {
-            var users = await _userRepository.GetAll();
+            var users = new List<User>();
+
+            if (!string.IsNullOrEmpty(name)) users = await _userRepository.GetByFilter(x => x.Name.Contains(name));
+            else users = await _userRepository.GetAll();
 
             var resultDto = users.MergeToDestination<List<UserDto>>();
 
@@ -52,9 +55,9 @@ namespace Dfo.Main.Domain.Services
 
             if (user == null) return Tuple.Create(true, "User not found!");
 
-            var model = dto.MergeToDestination<User>();
+            user = dto.MergeToDestination<User>();
 
-            await _userRepository.Update(model);
+            await _userRepository.Update(user);
 
             return Tuple.Create(false, string.Empty);
         }
